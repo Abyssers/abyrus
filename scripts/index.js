@@ -1,29 +1,16 @@
-/* global hexo */
-const logger = require('hexo-log')();
+/*eslint no-undef: "off"*/
+/*eslint no-useless-escape: "off"*/
+const logger = require("hexo-log")();
 
-/**
- * Print welcome message
- */
-logger.info(`=======================================
- ██╗ ██████╗ █████╗ ██████╗ ██╗   ██╗███████╗
- ██║██╔════╝██╔══██╗██╔══██╗██║   ██║██╔════╝
- ██║██║     ███████║██████╔╝██║   ██║███████╗
- ██║██║     ██╔══██║██╔══██╗██║   ██║╚════██║
- ██║╚██████╗██║  ██║██║  ██║╚██████╔╝███████║
- ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
-=============================================`);
+logger.info(`
+   _____ ___.                               
+  /  _  \\_ |__ ___.__._______ __ __  ______
+ /  /_\  \| __ <   |  |\_  __ \  |  \/  ___/
+/    |    \ \_\ \___  | |  | \/  |  /\___ \ 
+\____|__  /___  / ____| |__|  |____//____  >
+        \/    \/\/                       \/
+`);
 
-/**
- * Check if all dependencies are installed
- */
-require('../include/dependency')(hexo);
-
-/**
- * Configuration file checking and migration
- */
-require('../include/config')(hexo);
-
-/**
- * Register Hexo extensions and remove Hexo filters that could cause OOM
- */
-require('../include/register')(hexo);
+require("../include/dependency")(hexo);
+require("../include/config")(hexo);
+require("../include/register")(hexo);
