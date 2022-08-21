@@ -1,3 +1,3 @@
-Acarus
+# Acarus
 
-Based on [icarus](https://github.com/ppoffice/hexo-theme-icarus)
+An abysserlized theme for Hexo based on [icarus](https://github.com/ppoffice/hexo-theme-icarus)
