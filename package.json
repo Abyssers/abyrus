@@ -14,7 +14,7 @@
     "node": ">=12.13.0"
   },
   "scripts": {
-    "lint": "eslint --ext .js --ext .jsx --ext .json ."
+    
   },
   "dependencies": {
     "bulma-stylus": "0.8.0",
@@ -32,9 +32,20 @@
     "semver": ">=5.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/eslint-parser": "^7.18.9",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "eslint": "^8.22.0",
     "eslint-config-hexo": "^5.0.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-json": "^3.0.0",
-    "eslint-plugin-react": "^7.17.0"
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.17.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "markdownlint": "^0.26.2",
+    "markdownlint-cli2": "^0.5.1",
+    "prettier": "2.7.1"
   }
 }

@@ -3,3 +3,5 @@ node_modules/
 !.prettierrc.js
 !.lintstagedrc.js
 !commitlint.config.js
+!*.json
+!*.yml

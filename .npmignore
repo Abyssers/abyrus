@@ -1,5 +1,11 @@
 .github/
+.husky/
 .eslintignore
-.eslintrc.json
-.travis.yml
+.eslintrc.js
+.prettierignore
+.prettierrc.js
+.markdownlint-cli2.jsonc
+.lintstagedrc.js
+commitlint.config.js
 yarn.lock
+package-lock.json
