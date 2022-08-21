@@ -9,6 +9,8 @@ const { Migrator } = require("hexo-component-inferno/lib/core/migrate");
 const { SchemaLoader } = require("hexo-component-inferno/lib/core/schema");
 const { yellow } = require("./util/console");
 
+const THEME_NAME = "abyrus";
+
 function loadThemeConfig(hexo, cfgPaths) {
     const configs = cfgPaths.map(cfgPath => fs.readFileSync(cfgPath)).map(cfgPath => yaml.parse(cfgPath));
     return Object.assign({}, ...configs, hexo.config.theme_config);
@@ -25,11 +27,11 @@ function hashConfigFile(cfgPath) {
 }
 
 function checkConfig(hexo) {
-    if (!process.argv.includes("--icarus-dont-check-config")) {
+    if (!process.argv.includes(`--${THEME_NAME}-dont-check-config`)) {
         logger.info("=== Checking theme configurations ===");
 
         const siteCfgFile = path.join(hexo.base_dir, "_config.yml");
-        const themeSiteCfg = path.join(hexo.base_dir, "_config.abyrus.yml");
+        const themeSiteCfg = path.join(hexo.base_dir, `_config.${THEME_NAME}.yml`);
         const themeDirCfg = path.join(hexo.theme_dir, "_config.yml");
         const themeCfgPaths = [themeDirCfg, themeSiteCfg].filter(cfgPath => fs.existsSync(cfgPath));
         const themeSiteCfgExample = themeSiteCfg + ".example";
@@ -38,7 +40,7 @@ function checkConfig(hexo) {
         const loader = SchemaLoader.load(require(path.join(schemaDir, "config.json")), schemaDir);
         const schema = loader.getSchema("/config.json");
 
-        if (!process.argv.includes("--icarus-dont-generate-config")) {
+        if (!process.argv.includes(`--${THEME_NAME}-dont-generate-config`)) {
             if (!themeCfgPaths.length) {
                 logger.warn("None of the following configuration files is found:");
                 logger.warn(`- ${yellow(themeSiteCfg)}`);
@@ -47,17 +49,17 @@ function checkConfig(hexo) {
                 generateThemeConfigFile(schema, themeSiteCfg);
                 themeCfgPaths.push(themeSiteCfg);
                 logger.info(`${yellow(themeSiteCfg)} created successfully.`);
-                logger.info('To skip configuration generation, use "--icarus-dont-generate-config".');
+                logger.info(`To skip configuration generation, use "--${THEME_NAME}-dont-generate-config".`);
             }
         }
 
         let cfg = loadThemeConfig(hexo, themeCfgPaths);
 
-        if (!process.argv.includes("--icarus-dont-upgrade-config")) {
+        if (!process.argv.includes(`--${THEME_NAME}-dont-upgrade-config`)) {
             const migrator = new Migrator(require(path.join(hexo.theme_dir, "include/migration/head")));
             if (cfg.version && migrator.isOudated(cfg.version)) {
                 logger.warn(`Your theme configuration is outdated (${cfg.version} < ${migrator.getLatestVersion()}).`);
-                logger.info('To skip the configuration upgrade, use "--icarus-dont-upgrade-config".');
+                logger.info(`To skip the configuration upgrade, use "--${THEME_NAME}-dont-upgrade-config".`);
 
                 logger.info("Backing up theme configuration files...");
                 for (const cfgPath of themeCfgPaths) {
@@ -81,7 +83,7 @@ function checkConfig(hexo) {
         const validation = schema.validate(cfg);
         if (validation !== true) {
             logger.warn("Theme configurations failed one or more checks.");
-            logger.warn("Icarus may still run, but you will encounter unexcepted results.");
+            logger.warn(`${THEME_NAME} may still run, but you will encounter unexcepted results.`);
             logger.warn("Here is some information for you to correct the configuration file.");
             logger.warn(util.inspect(validation));
         }
@@ -100,7 +102,7 @@ module.exports = hexo => {
     } catch (e) {
         logger.error(e);
         logger.error("Theme configuration checking failed.");
-        logger.info("You may use '--icarus-dont-check-config' to skip configuration checking.");
+        logger.info(`You may use '--${THEME_NAME}-dont-check-config' to skip configuration checking.`);
         process.exit(-1);
     }
 };
