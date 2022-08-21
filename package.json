@@ -16,12 +16,6 @@
   "scripts": {
     "lint": "eslint --ext .js --ext .jsx --ext .json ."
   },
-  "devDependencies": {
-    "eslint": "^8.6.0",
-    "eslint-config-hexo": "^5.0.0",
-    "eslint-plugin-json": "^3.0.0",
-    "eslint-plugin-react": "^7.17.0"
-  },
   "dependencies": {
     "bulma-stylus": "0.8.0",
     "deepmerge": "^4.2.2",
@@ -36,5 +30,11 @@
     "inferno-create-element": "^7.3.3",
     "moment": "^2.22.2",
     "semver": ">=5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.22.0",
+    "eslint-config-hexo": "^5.0.0",
+    "eslint-plugin-json": "^3.0.0",
+    "eslint-plugin-react": "^7.17.0"
   }
 }
