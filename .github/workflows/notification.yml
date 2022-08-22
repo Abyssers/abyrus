@@ -25,5 +25,5 @@ jobs:
                     -X POST \
                     -H "Accept: application/vnd.github+json" \ 
                     -H "Authorization: token ${{ secrets.MORILENCE_GENERAL_PAT }}" \
-                    https://api.github.com/repos/Abyssers/blog/dispatches \
-                    -d '{ "event_type": "theme-updated", "client_payload": { "changes": ${{ github.event.changes }} } }'
+                    -d '{ "event_type": "theme-updated", "client_payload": { "changes": "${{ github.event.changes }}" } }' \
+                    https://api.github.com/repos/Abyssers/blog/dispatches
