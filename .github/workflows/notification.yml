@@ -20,10 +20,12 @@ jobs:
         environment: ABYSSERS_NOTIFY_ENV
         steps:
             - name: "[Notify Users' Repo]"
+              env:
+                  MORILENCE_GENERAL_PAT: ${{ secrets.MORILENCE_GENERAL_PAT }}
               run: |
                   curl \
                     -X POST \
                     -H "Accept: application/vnd.github+json" \ 
-                    -H "Authorization: token ${{ secrets.MORILENCE_GENERAL_PAT }}" \
-                    -d '{ "event_type": "theme-updated", "client_payload": { "changes": "${{ github.event.changes }}" } }' \
-                    "https://api.github.com/repos/Abyssers/blog/dispatches"
+                    -H "Authorization: token $MORILENCE_GENERAL_PAT" \
+                    -d '{ "event_type": "theme-updated", "client_payload": { "changes": "" } }' \
+                    https://api.github.com/repos/Abyssers/blog/dispatches
