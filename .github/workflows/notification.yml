@@ -19,10 +19,10 @@ jobs:
         runs-on: ubuntu-latest
         environment: ABYSSERS_NOTIFY_ENV
         steps:
-            - name: "[Notify Users' Repo]"
-              run: |
-                  curl 'https://api.github.com/repos/Abyssers/blog/dispatches' \
-                    -X POST \
-                    -H "Accept: application/vnd.github+json" \ 
-                    -H "Authorization: token ${{ secrets.MORILENCE_GENERAL_PAT }}" \
-                    -d '{ "event_type": "theme-updated", "client_payload": { "changes": "" } }' \
+            - name: "[Notify Users of Theme Updates]"
+              uses: peter-evans/repository-dispatch@v2
+              with:
+                  token: ${{ secrets.MORILENCE_GENERAL_PAT }}
+                  repository: Abyssers/blog
+                  event-type: theme-updated
+                  client-payload: '{ "changes": "${{ github.event.changes }}" }'
