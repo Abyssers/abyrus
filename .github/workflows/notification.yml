@@ -14,7 +14,7 @@ on:
             - "package.json"
 jobs:
     notify:
-        if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request_target' && github.event.pull_request.merged == true) }}
+        if: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.merged == true }}
         runs-on: ubuntu-latest
         environment: ABYSSERS_NOTIFY_ENV
         steps:
@@ -24,4 +24,4 @@ jobs:
                   token: ${{ secrets.MORILENCE_GENERAL_PAT }}
                   repository: Abyssers/blog
                   event-type: theme-updated
-                  client-payload: '{ "changes": "${{ github.event.changes }}" }'
+                  client-payload: '{ "sha": "${{ github.sha }}", "ref": "${{ github.ref }}", "changes": "${{ github.event.changes }}" }'
