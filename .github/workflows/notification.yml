@@ -24,4 +24,4 @@ jobs:
                   token: ${{ secrets.MORILENCE_GENERAL_PAT }}
                   repository: Abyssers/blog
                   event-type: theme-updated
-                  client-payload: '{ "changes": "${{ github.event.changes }}" }'
+                  client-payload: '{ "sha": "${{ github.sha }}", "ref": "${{ github.ref }}", "changes": "${{ github.event.changes }}" }'
