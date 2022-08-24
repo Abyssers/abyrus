@@ -22,7 +22,12 @@ module.exports = {
 
     parser: "@babel/eslint-parser",
     parserOptions: {
-        requireConfigFile: false, // for @babel/eslint-parser
+        // for @babel/eslint-parser
+        requireConfigFile: false,
+        babelOptions: {
+            presets: ["@babel/preset-react"],
+        },
+
         ecmaVersion: 6,
         ecmaFeatures: {
             jsx: true,
