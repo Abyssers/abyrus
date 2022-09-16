@@ -198,14 +198,16 @@ Profile.Cacheable = cacheComponent(Profile, "widget.profile", props => {
         author,
         authorTitle: author_title,
         location,
-        contributors: contributors.map(contributor => {
-            if (typeof contributor === "object") {
-                const { avatar, gravatar, link } = contributor;
-                contributor.avatar = getAvatar(gravatar, avatar);
-                contributor.link = link ? url_for(link) : undefined;
-            }
-            return contributor;
-        }),
+        contributors: Array.isArray(contributors)
+            ? contributors.map(contributor => {
+                  if (typeof contributor === "object") {
+                      const { avatar, gravatar, link } = contributor;
+                      contributor.avatar = getAvatar(gravatar, avatar);
+                      contributor.link = link ? url_for(link) : undefined;
+                  }
+                  return contributor;
+              })
+            : [],
         counter: {
             post: {
                 count: postCount,
