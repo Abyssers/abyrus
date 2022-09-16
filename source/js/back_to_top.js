@@ -1,44 +1,46 @@
 $(document).ready(() => {
-    const $button = $('#back-to-top');
-    const $footer = $('footer.footer');
-    const $mainColumn = $('.column-main');
-    const $leftSidebar = $('.column-left');
-    const $rightSidebar = $('.column-right');
+    const $button = $("#back-to-top");
+    const $footer = $("footer.footer");
+    const $mainColumn = $(".column-main");
+    const $leftSidebar = $(".column-left");
+    const $rightSidebar = $(".column-right");
     let lastScrollTop = 0;
     const rightMargin = 20;
     const bottomMargin = 20;
     let lastState = null;
     const state = {
         base: {
-            classname: 'card has-text-centered',
-            left: '',
+            classname: "card has-text-centered",
+            left: "",
             width: 64,
-            bottom: bottomMargin
-        }
+            bottom: bottomMargin,
+        },
     };
-    state['desktop-hidden'] = Object.assign({}, state.base, {
-        classname: state.base.classname + ' rise-up'
+    state["desktop-hidden"] = Object.assign({}, state.base, {
+        classname: state.base.classname + " rise-up",
     });
-    state['desktop-visible'] = Object.assign({}, state['desktop-hidden'], {
-        classname: state['desktop-hidden'].classname + ' fade-in'
+    state["desktop-visible"] = Object.assign({}, state["desktop-hidden"], {
+        classname: state["desktop-hidden"].classname + " fade-in",
     });
-    state['desktop-dock'] = Object.assign({}, state['desktop-visible'], {
-        classname: state['desktop-visible'].classname + ' fade-in is-rounded',
-        width: 40
+    state["desktop-dock"] = Object.assign({}, state["desktop-visible"], {
+        classname: state["desktop-visible"].classname + " fade-in is-rounded",
+        width: 40,
     });
-    state['mobile-hidden'] = Object.assign({}, state.base, {
-        classname: state.base.classname + ' fade-in',
-        right: rightMargin
+    state["mobile-hidden"] = Object.assign({}, state.base, {
+        classname: state.base.classname + " fade-in",
+        right: rightMargin,
     });
-    state['mobile-visible'] = Object.assign({}, state['mobile-hidden'], {
-        classname: state['mobile-hidden'].classname + ' rise-up'
+    state["mobile-visible"] = Object.assign({}, state["mobile-hidden"], {
+        classname: state["mobile-hidden"].classname + " rise-up",
     });
 
     function isStateEquals(prev, next) {
         return ![].concat(Object.keys(prev), Object.keys(next)).some(key => {
-            return !Object.prototype.hasOwnProperty.call(prev, key)
-                || !Object.prototype.hasOwnProperty.call(next, key)
-                || next[key] !== prev[key];
+            return (
+                !Object.prototype.hasOwnProperty.call(prev, key) ||
+                !Object.prototype.hasOwnProperty.call(next, key) ||
+                next[key] !== prev[key]
+            );
         });
     }
 
@@ -46,9 +48,9 @@ $(document).ready(() => {
         if (lastState !== null && isStateEquals(lastState, state)) {
             return;
         }
-        $button.attr('class', state.classname);
+        $button.attr("class", state.classname);
         for (const prop in state) {
-            if (prop === 'classname') {
+            if (prop === "classname") {
                 continue;
             }
             $button.css(prop, state[prop]);
@@ -80,9 +82,12 @@ $(document).ready(() => {
         if (!hasRightSidebar()) {
             return 0;
         }
-        return Math.max.apply(null, $rightSidebar.find('.widget').map(function() {
-            return $(this).offset().top + $(this).outerHeight(true);
-        }));
+        return Math.max.apply(
+            null,
+            $rightSidebar.find(".widget").map(function () {
+                return $(this).offset().top + $(this).outerHeight(true);
+            })
+        );
     }
 
     function getScrollTop() {
@@ -111,28 +116,28 @@ $(document).ready(() => {
             let nextState;
             const padding = ($mainColumn.outerWidth() - $mainColumn.width()) / 2;
             const maxLeft = $(window).width() - getButtonWidth() - rightMargin;
-            const maxBottom = $footer.offset().top + (getButtonHeight() / 2) + bottomMargin;
+            const maxBottom = $footer.offset().top + getButtonHeight() / 2 + bottomMargin;
             if (getScrollTop() === 0 || getScrollBottom() < getRightSidebarBottom() + padding + getButtonHeight()) {
-                nextState = state['desktop-hidden'];
+                nextState = state["desktop-hidden"];
             } else if (getScrollBottom() < maxBottom) {
-                nextState = state['desktop-visible'];
+                nextState = state["desktop-visible"];
             } else {
-                nextState = Object.assign({}, state['desktop-dock'], {
-                    bottom: getScrollBottom() - maxBottom + bottomMargin
+                nextState = Object.assign({}, state["desktop-dock"], {
+                    bottom: getScrollBottom() - maxBottom + bottomMargin,
                 });
             }
 
             const left = $mainColumn.offset().left + $mainColumn.outerWidth() + padding;
             nextState = Object.assign({}, nextState, {
-                left: Math.min(left, maxLeft)
+                left: Math.min(left, maxLeft),
             });
             applyState(nextState);
         } else {
             // mobile and tablet mode
             if (!isScrollUp()) {
-                applyState(state['mobile-hidden']);
+                applyState(state["mobile-hidden"]);
             } else {
-                applyState(state['mobile-visible']);
+                applyState(state["mobile-visible"]);
             }
             updateScrollTop();
         }
@@ -142,11 +147,11 @@ $(document).ready(() => {
     $(window).resize(update);
     $(window).scroll(update);
 
-    $('#back-to-top').on('click', () => {
-        if (CSS && CSS.supports && CSS.supports('(scroll-behavior: smooth)')) {
-            window.scroll({ top: 0, behavior: 'smooth' });
+    $("#back-to-top").on("click", () => {
+        if (CSS && CSS.supports && CSS.supports("(scroll-behavior: smooth)")) {
+            window.scroll({ top: 0, behavior: "smooth" });
         } else {
-            $('body, html').animate({ scrollTop: 0 }, 400);
+            $("body, html").animate({ scrollTop: 0 }, 400);
         }
     });
 });

@@ -1,5 +1,5 @@
-/*eslint no-undef: "off"*/
-/*eslint no-useless-escape: "off"*/
+/* eslint no-undef: "off" */
+/* eslint no-useless-escape: "off" */
 const logger = require("hexo-log")();
 
 logger.info(`

@@ -1,5 +1,5 @@
-const { Component } = require('inferno');
-const Article = require('./common/article');
+const { Component } = require("inferno");
+const Article = require("./common/article");
 
 module.exports = class extends Component {
     render() {

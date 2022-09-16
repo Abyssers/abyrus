@@ -14,7 +14,8 @@
         "node": ">=12.13.0"
     },
     "scripts": {
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "lint": "eslint --fix --ext .js,.jsx . && prettier --write ."
     },
     "dependencies": {
         "bulma-stylus": "0.8.0",

@@ -12,25 +12,19 @@
         "author": {
             "type": "string",
             "description": "Author name",
-            "examples": [
-                "Your name"
-            ],
+            "examples": ["Your name"],
             "nullable": true
         },
         "author_title": {
             "type": "string",
             "description": "Author title",
-            "examples": [
-                "Your title"
-            ],
+            "examples": ["Your title"],
             "nullable": true
         },
         "location": {
             "type": "string",
             "description": "Author's current location",
-            "examples": [
-                "Your location"
-            ],
+            "examples": ["Your location"],
             "nullable": true
         },
         "avatar": {
@@ -52,9 +46,7 @@
         "follow_link": {
             "type": "string",
             "description": "URL or path for the follow button",
-            "examples": [
-                "https://github.com/ppoffice"
-            ],
+            "examples": ["https://github.com/ppoffice"],
             "nullable": true
         },
         "social_links": {
@@ -86,7 +78,5 @@
             ]
         }
     },
-    "required": [
-        "type"
-    ]
+    "required": ["type"]
 }
