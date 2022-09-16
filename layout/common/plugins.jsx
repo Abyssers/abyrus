@@ -28,7 +28,7 @@ module.exports = class extends Component {
                             />
                         );
                     } catch (e) {
-                        logger.w(`Icarus cannot load plugin "${name}"`);
+                        logger.w(`Abyrus cannot load plugin "${name}"`);
                         return null;
                     }
                 })}
