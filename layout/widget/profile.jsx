@@ -27,9 +27,52 @@ class Profile extends Component {
         );
     }
 
+    renderContributors(contributors) {
+        if (!contributors.length) {
+            return null;
+        }
+        const keyContributors = contributors.filter(contributor => typeof contributor === "object").slice(0, 20);
+        return (
+            <ul class="level is-flex is-multiline justify-content-center">
+                {keyContributors.map(contributor => {
+                    const { name, avatar, link } = contributor;
+                    return (
+                        <li>
+                            <a
+                                class="level-item is-transparent mx-1 my-1"
+                                target="_blank"
+                                rel="noopener"
+                                title={name}
+                                href={link}>
+                                <figure class="image is-32x32 mx-auto">
+                                    <img class="avatar is-rounded" src={avatar} alt={name} />
+                                </figure>
+                            </a>
+                        </li>
+                    );
+                })}
+                {contributors.length > keyContributors.length ? (
+                    <li>
+                        <span class="level-item is-transparent image is-32x32 has-text-centered mx-1 my-1">...</span>
+                    </li>
+                ) : null}
+            </ul>
+        );
+    }
+
     render() {
-        const { avatar, avatarRounded, author, authorTitle, location, counter, followLink, followTitle, socialLinks } =
-            this.props;
+        const {
+            avatar,
+            avatarRounded,
+            author,
+            authorTitle,
+            location,
+            contributors,
+            counter,
+            followLink,
+            followTitle,
+            socialLinks,
+        } = this.props;
         return (
             <div class="card widget" data-type="profile">
                 <div class="card-content">
@@ -58,6 +101,7 @@ class Profile extends Component {
                             </div>
                         </div>
                     </nav>
+                    {contributors ? this.renderContributors(contributors) : null}
                     <nav class="level is-mobile">
                         <div class="level-item has-text-centered is-marginless">
                             <div>
@@ -111,12 +155,13 @@ Profile.Cacheable = cacheComponent(Profile, "widget.profile", props => {
         author = props.config.author,
         author_title,
         location,
+        contributors,
         follow_link,
         social_links,
     } = widget;
     const { url_for, _p, __ } = helper;
 
-    function getAvatar() {
+    function getAvatar(gravatar, avatar) {
         if (gravatar) {
             return gravatrHelper(gravatar, 128);
         }
@@ -148,11 +193,19 @@ Profile.Cacheable = cacheComponent(Profile, "widget.profile", props => {
         : null;
 
     return {
-        avatar: getAvatar(),
+        avatar: getAvatar(gravatar, avatar),
         avatarRounded: avatar_rounded,
         author,
         authorTitle: author_title,
         location,
+        contributors: contributors.map(contributor => {
+            if (typeof contributor === "object") {
+                const { avatar, gravatar, link } = contributor;
+                contributor.avatar = getAvatar(gravatar, avatar);
+                contributor.link = link ? url_for(link) : undefined;
+            }
+            return contributor;
+        }),
         counter: {
             post: {
                 count: postCount,
