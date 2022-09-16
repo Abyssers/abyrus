@@ -23,7 +23,7 @@ module.exports = class extends Component {
                                     Donate = Donate.Cacheable ? Donate.Cacheable : Donate;
                                     return <Donate helper={helper} donate={service} />;
                                 } catch (e) {
-                                    logger.w(`Icarus cannot load donate button "${type}"`);
+                                    logger.w(`Abyrus cannot load donate button "${type}"`);
                                 }
                             }
                             return null;

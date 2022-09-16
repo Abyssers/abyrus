@@ -66,7 +66,7 @@ module.exports = class extends Migration {
                             widget.type = "tags";
                             break;
                         case "tagcloud":
-                            logger.warn("The tagcloud widget has been removed from Icarus in version 3.0.0.");
+                            logger.warn("The tagcloud widget has been removed from Abyrus in version 3.0.0.");
                             logger.warn("Please remove it from your configuration file.");
                             break;
                     }
