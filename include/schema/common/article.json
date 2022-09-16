@@ -23,11 +23,7 @@
                 "fold": {
                     "type": "string",
                     "description": "Default folding status of the code blocks. Can be \"\", \"folded\", \"unfolded\"",
-                    "enum": [
-                        "",
-                        "folded",
-                        "unfolded"
-                    ],
+                    "enum": ["", "folded", "unfolded"],
                     "default": "unfolded",
                     "nullable": true
                 }
@@ -53,16 +49,16 @@
             "examples": [
                 {
                     "Creative Commons": {
-                      "icon": "fab fa-creative-commons",
-                      "url": "https://creativecommons.org/"
+                        "icon": "fab fa-creative-commons",
+                        "url": "https://creativecommons.org/"
                     },
                     "Attribution": {
-                      "icon": "fab fa-creative-commons-by",
-                      "url": "https://creativecommons.org/licenses/by/4.0/"
+                        "icon": "fab fa-creative-commons-by",
+                        "url": "https://creativecommons.org/licenses/by/4.0/"
                     },
                     "Noncommercial": {
-                      "icon": "fab fa-creative-commons-nc",
-                      "url": "https://creativecommons.org/licenses/by-nc/4.0/"
+                        "icon": "fab fa-creative-commons-nc",
+                        "url": "https://creativecommons.org/licenses/by-nc/4.0/"
                     }
                 }
             ]
