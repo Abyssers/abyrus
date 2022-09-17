@@ -1,4 +1,4 @@
-name: notification
+name: notify
 on:
     pull_request_target:
         types:
@@ -13,15 +13,15 @@ on:
             - "source/**"
             - "package.json"
 jobs:
-    notify:
+    main:
         if: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.merged == true }}
         runs-on: ubuntu-latest
         environment: ABYSSERS_NOTIFY_ENV
         steps:
-            - name: "[Notify Users of Theme Updates]"
+            - name: "[Notify Users of Abyrus Updates]"
               uses: peter-evans/repository-dispatch@v2
               with:
                   token: ${{ secrets.MORILENCE_GENERAL_PAT }}
                   repository: Abyssers/blog
-                  event-type: theme-updated
+                  event-type: abyrus-updated
                   client-payload: '{ "sha": "${{ github.sha }}", "ref": "${{ github.ref }}", "changes": "${{ github.event.changes }}" }'
