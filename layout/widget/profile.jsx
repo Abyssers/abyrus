@@ -31,18 +31,22 @@ class Profile extends Component {
         if (!contributors.length) {
             return null;
         }
-        const keyContributors = contributors.filter(contributor => typeof contributor === "object").slice(0, 20);
+        const keyContributors = contributors.slice(0, 20);
+        const totalContributions = contributors.reduce((total, curr) => total + curr.contributions, 0);
         return (
             <ul class="level is-flex is-multiline justify-content-center">
                 {keyContributors.map(contributor => {
-                    const { name, avatar, link } = contributor;
+                    const { name, avatar, link, contributions } = contributor;
                     return (
                         <li>
                             <a
                                 class="level-item is-transparent mx-1 my-1"
                                 target="_blank"
                                 rel="noopener"
-                                title={name}
+                                title={`${name}\nContributions: ${contributions}\nRate: ${(
+                                    (contributions / totalContributions) *
+                                    100
+                                ).toFixed(2)}%`}
                                 href={link}>
                                 <figure class="image is-32x32 mx-auto">
                                     <img class="avatar is-rounded" src={avatar} alt={name} />
@@ -161,6 +165,14 @@ Profile.Cacheable = cacheComponent(Profile, "widget.profile", props => {
     } = widget;
     const { url_for, _p, __ } = helper;
 
+    function isObj(o) {
+        return Object.prototype.toString.call(o) === "[object Object]";
+    }
+
+    function isArr(o) {
+        return Object.prototype.toString.call(o) === "[object Array]";
+    }
+
     function getAvatar(gravatar, avatar) {
         if (gravatar) {
             return gravatrHelper(gravatar, 128);
@@ -198,15 +210,16 @@ Profile.Cacheable = cacheComponent(Profile, "widget.profile", props => {
         author,
         authorTitle: author_title,
         location,
-        contributors: Array.isArray(contributors)
-            ? contributors.map(contributor => {
-                  if (typeof contributor === "object") {
-                      const { avatar, gravatar, link } = contributor;
+        contributors: isArr(contributors)
+            ? contributors
+                  .filter(contributor => isObj(contributor))
+                  .map(contributor => {
+                      const { avatar, gravatar, link, contributions } = contributor;
                       contributor.avatar = getAvatar(gravatar, avatar);
                       contributor.link = link ? url_for(link) : undefined;
-                  }
-                  return contributor;
-              })
+                      contributor.contributions = Number.isInteger(Number(contributions)) ? Number(contributions) : 0;
+                      return contributor;
+                  })
             : [],
         counter: {
             post: {
