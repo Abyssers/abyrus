@@ -160,6 +160,7 @@ Profile.Cacheable = cacheComponent(Profile, "widget.profile", props => {
         author_title,
         location,
         contributors,
+        follow_title,
         follow_link,
         social_links,
     } = widget;
@@ -239,7 +240,7 @@ Profile.Cacheable = cacheComponent(Profile, "widget.profile", props => {
             },
         },
         followLink: follow_link ? url_for(follow_link) : undefined,
-        followTitle: __("widget.follow"),
+        followTitle: follow_title || __("widget.follow"),
         socialLinks,
     };
 });
